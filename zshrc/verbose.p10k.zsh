@@ -46,6 +46,7 @@
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
     status                  # exit code of the last command
+    battery                 # internal battery
     command_execution_time  # duration of the last command
     background_jobs         # presence of background jobs
     direnv                  # direnv status (https://direnv.net/)
@@ -111,7 +112,6 @@
     # ip                    # ip address and bandwidth usage for a specified network interface
     # public_ip             # public IP address
     # proxy                 # system-wide http/https/ftp proxy
-    battery                 # internal battery
     # wifi                  # wifi speed
     # example               # example user-defined segment (see prompt_example function below)
   )
@@ -1603,23 +1603,19 @@
   typeset -g POWERLEVEL9K_BATTERY_{CHARGING,CHARGED}_FOREGROUND=70
   # Show battery in yellow when it's discharging.
   typeset -g POWERLEVEL9K_BATTERY_DISCONNECTED_FOREGROUND=178
+  
   # Battery pictograms going from low to high level of charge.
-  typeset -g POWERLEVEL9K_BATTERY_STAGES=('🔋')
+  # typeset -g POWERLEVEL9K_BATTERY_STAGES=('🔋')
+
   # Don't show the remaining time to charge/discharge.
   typeset -g POWERLEVEL9K_BATTERY_VERBOSE=false
 
-  typeset -g POWERLEVEL9K_BATTERY_CHARGING='⚡'     # Change to a different charging icon if desired
-  typeset -g POWERLEVEL9K_BATTERY_DISCONNECTED='🔋' # Change to a different battery icon if desired
-  typeset -g POWERLEVEL9K_BATTERY_LOW='🔌'         # Change to a different low battery icon if desired
-
-
   # Battery icons
-  typeset -g POWERLEVEL9K_BATTERY_STAGES=()
   typeset -g POWERLEVEL9K_BATTERY_ICON=
-  typeset -g POWERLEVEL9K_BATTERY_CHARGING_VISUAL_IDENTIFIER_EXPANSION='⚡'
-  typeset -g POWERLEVEL9K_BATTERY_CHARGED_VISUAL_IDENTIFIER_EXPANSION='⚡'
-  typeset -g POWERLEVEL9K_BATTERY_DISCONNECTED_VISUAL_IDENTIFIER_EXPANSION='🔋'
-  typeset -g POWERLEVEL9K_BATTERY_LOW_VISUAL_IDENTIFIER_EXPANSION='🔌'
+  typeset -g POWERLEVEL9K_BATTERY_CHARGING_VISUAL_IDENTIFIER_EXPANSION='🔌'
+  typeset -g POWERLEVEL9K_BATTERY_CHARGED_VISUAL_IDENTIFIER_EXPANSION='🔋'
+  typeset -g POWERLEVEL9K_BATTERY_DISCONNECTED_VISUAL_IDENTIFIER_EXPANSION=''
+  typeset -g POWERLEVEL9K_BATTERY_LOW_VISUAL_IDENTIFIER_EXPANSION='🪫'
 
   #####################################[ wifi: wifi speed ]#####################################
   # WiFi color.
@@ -1713,6 +1709,9 @@
   #              zsh initialization. Choose this if you've never tried instant prompt, haven't
   #              seen the warning, or if you are unsure what this all means.
   typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
+
+  # Ensure battery segment gets loaded immediately in instant prompt
+  typeset -g POWERLEVEL9K_BATTERY_INSTANT=true
 
   # Hot reload allows you to change POWERLEVEL9K options after Powerlevel10k has been initialized.
   # For example, you can type POWERLEVEL9K_BACKGROUND=red and see your prompt turn red. Hot reload
